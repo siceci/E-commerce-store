@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<section id="carousel2"> 
+
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent pl-0">
+                <li class="breadcrumb-item"><a href="{{ url_for('main.index') }}">HOME</a></li>
+                <li class="breadcrumb-item"><a href="#">{{ vinyls.artist }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ vinyls.name }}</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="container">
+      <div class="col-md-10 offset-1">
+        <div class="row">
+          <div class="col-md-7">
+            <div class="card border-0 center">
+                <img style="width:150%;" src="{{ url_for('static', filename='img/'+vinyls.image) }}" alt="...">
+            </div>
+        </div>
+            <div class="col-md-5">
+                <div>
+                    <h5>{{ vinyls.name }}</h5>
+                    <div class="d-flex">
+                        <p>${{vinyls.price}}</p>
+                    </div>
+                    <p>IN STOCK</p>
+                          <form action="{{ url_for('main.order') }}" method="POST">
+                            <input type="hidden" id="vinyl_id" name="vinyl_id" value="{{ vinyls.id }}">
+                            <input class="btn btn-outline-danger" type="submit" value="Add to Cart">
+                        </form>
+                        <hr>
+                          <h6 class="text-left">{{vinyls.description}}</h6>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    </div>
+    {% endblock%}

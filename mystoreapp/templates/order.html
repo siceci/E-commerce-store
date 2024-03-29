@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<section>  
+    <div class="container">
+        <div class="row co-8 offset-2 d-flex mt-2 mb-2">
+            <h3>My Shopping Cart</h3>
+        </div>
+
+        {% for vinyl in order.vinyls %}
+            <div class="row shadow-md my-row mb-3">
+                <div class="col-sm-8  offset-2 card">
+                    <h5 class="card-header">{{ vinyl.artist}} : {{ vinyl.name }}</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <img class="img-thumbnail" src="{{ url_for('static', filename=('img/' + vinyl.image)) }}">
+                            </div>
+                            <div class="col-6 offset-3">
+                                <div class="">
+                                        <h5 class="text-center">{{ "$%.2f"|format(vinyl.price) }}</h5>
+                                        <form method="POST" action="{{url_for('main.deleteorderitem')}}">
+                                            <input type="hidden" id="id" name="id" value="{{vinyl.id}}">
+                                            <input type="submit" value="Delete" class="btn btn-outline-danger mb-3 center">
+                                        </form> 
+                                </div>
+                            </div>  
+                        </div>                      
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        <section>
+            <div class="row co-8 offset-7 d-flex">
+                <h5 class="mt-4">Total = {{ "$%.2f"|format(totalprice) }}</h5>
+            </div>
+            <div class="row co-12 d-flex mt-2 mb-4 justify-content-center">
+                <a href="{{ url_for('main.search', search='') }}" class="btn btn-outline-danger mr-4">Continue to Shop</a>
+                <a href="{{ url_for('main.checkout') }}" class="btn btn-outline-danger mr-4">Checkout</a>
+                <a href="{{ url_for('main.deleteorder') }}" class="btn btn-outline-danger">Empty Cart</a>
+            </div>
+        </section>
+    </div>
+</section>
+{% endblock %}
+

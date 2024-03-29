@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<section>
+
+    <div class="text-dark text-center">
+        <div>
+            <p class="h3 text-dark mb-4">Select vinyl from below</p>
+        </div>
+    </div>
+    <div class="container">
+    <div class="card-columns">
+
+        {% for vinyl in vinyls%}
+        <div class="card border-0 box-shadow text-center">
+            <a href= "{{ url_for('main.vinyldetail', id=vinyl.id) }}">
+            <img class="card-img-top" src="{{ url_for('static', filename='img/'+vinyl.image) }}" alt="Card image">
+            <div class="card-body">
+                <h6 class="card-title">{{ vinyl.name }}</h6>
+                <h6 class="card-text">{{ vinyl.artist }}</h6>
+                <p class="card-text">${{ vinyl.price }}</p>
+            </div>
+        </a>
+        <form action="{{ url_for('main.order') }}">
+            <input type="hidden" id="vinyl_id" name="vinyl_id" value="{{ vinyl.id }}">
+            <input class="btn btn-outline-danger" type="submit" value="Add to Cart">
+        </form>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+</section>
+{% endblock %}
+
+
